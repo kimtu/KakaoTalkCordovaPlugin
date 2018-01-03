@@ -178,7 +178,7 @@ public class KakaoTalk extends CordovaPlugin {
 
 		        @Override
 		        public void onSuccess(UserProfile userProfile) {
-					Logger.d("UserProfile : " + userProfile);
+					Log.v("UserProfile : " + userProfile);
 		        	callbackContext.success(handleResult(userProfile));
 		        }
 

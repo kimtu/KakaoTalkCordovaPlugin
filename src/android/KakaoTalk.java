@@ -32,6 +32,7 @@ import com.kakao.util.exception.KakaoException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class KakaoTalk extends CordovaPlugin {
 
@@ -46,7 +47,7 @@ public class KakaoTalk extends CordovaPlugin {
 	 */
 	public void initialize(CordovaInterface cordova, CordovaWebView webView)
 	{
-		Log.v(LOG_TAG, "kakao : initialize");Log.d("test:"+"@@@@@@@@@@");
+		Log.v(LOG_TAG, "kakao : initialize");
 		super.initialize(cordova, webView);
 		currentActivity = this.cordova.getActivity();
 		KakaoSDK.init(new KakaoSDKAdapter());
@@ -177,6 +178,7 @@ public class KakaoTalk extends CordovaPlugin {
 
 		        @Override
 		        public void onSuccess(UserProfile userProfile) {
+					Logger.d("UserProfile : " + userProfile);
 		        	callbackContext.success(handleResult(userProfile));
 		        }
 

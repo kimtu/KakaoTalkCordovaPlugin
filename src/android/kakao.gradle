@@ -4,7 +4,7 @@ repositories {
 }
 
 dependencies {
-	compile('com.kakao.sdk:kakaotalk:1.1.4@aar') {
+	compile('com.kakao.sdk:kakaotalk:1.2.1@aar') {
 		transitive = true
 	}
 }

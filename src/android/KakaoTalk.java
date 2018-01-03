@@ -30,6 +30,9 @@ import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 import com.kakao.util.exception.KakaoException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class KakaoTalk extends CordovaPlugin {
 
 	private static final String LOG_TAG = "KakaoTalk";
@@ -129,6 +132,7 @@ public class KakaoTalk extends CordovaPlugin {
 		try {
 			response.put("id", userProfile.getId());
 			response.put("nickname", userProfile.getNickname());
+			response.put("email", userProfile.getKaccountEmail());
 			response.put("profile_image", userProfile.getProfileImagePath());
 		} catch (JSONException e) {
 			Log.v(LOG_TAG, "kakao : handleResult error - " + e.toString());
@@ -151,6 +155,13 @@ public class KakaoTalk extends CordovaPlugin {
 		
         @Override
         public void onSessionOpened() {
+
+			List<String> propertyKeys = new ArrayList<String>();
+			propertyKeys.add("kaccount_email");
+			propertyKeys.add("nickname");
+			propertyKeys.add("profile_image");
+			propertyKeys.add("thumbnail_image");
+
         	Log.v(LOG_TAG, "kakao : SessionCallback.onSessionOpened");
         	UserManagement.requestMe(new MeResponseCallback() {
 		        @Override
@@ -173,7 +184,7 @@ public class KakaoTalk extends CordovaPlugin {
 		        public void onNotSignedUp() {
 		        	callbackContext.error("this user is not signed up");
 		        }
-		    });
+		    }, propertyKeys, false );
         }
 
         @Override

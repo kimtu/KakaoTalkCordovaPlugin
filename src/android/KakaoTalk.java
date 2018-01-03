@@ -133,8 +133,9 @@ public class KakaoTalk extends CordovaPlugin {
 		try {
 			response.put("id", userProfile.getId());
 			response.put("nickname", userProfile.getNickname());
-			response.put("email", userProfile.getEmail());
+			response.put("properties", userProfile.getProperties());
 			response.put("profile_image", userProfile.getProfileImagePath());
+			
 		} catch (JSONException e) {
 			Log.v(LOG_TAG, "kakao : handleResult error - " + e.toString());
 		}
@@ -157,11 +158,11 @@ public class KakaoTalk extends CordovaPlugin {
         @Override
         public void onSessionOpened() {
 
-			/* List<String> propertyKeys = new ArrayList<String>();
+			List<String> propertyKeys = new ArrayList<String>();
 			propertyKeys.add("kaccount_email");
 			propertyKeys.add("nickname");
 			propertyKeys.add("profile_image");
-			propertyKeys.add("thumbnail_image"); */
+			propertyKeys.add("thumbnail_image");
 
         	Log.v(LOG_TAG, "kakao : SessionCallback.onSessionOpened");
         	UserManagement.requestMe(new MeResponseCallback() {
@@ -185,7 +186,7 @@ public class KakaoTalk extends CordovaPlugin {
 		        public void onNotSignedUp() {
 		        	callbackContext.error("this user is not signed up");
 		        }
-		    } );
+		    }, propertyKeys, false );
         }
 
         @Override
